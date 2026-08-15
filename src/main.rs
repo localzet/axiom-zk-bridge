@@ -1,33 +1,39 @@
 use anyhow::{bail, Context, Result};
 use sha2::{Digest, Sha256};
 use std::{env, fs};
+
 fn main() -> Result<()> {
-    let mut a = env::args().skip(1);
-    if a.next().as_deref() != Some("commit") {
-        bail!("usage: axiom-zk-bridge commit --program P --input TEXT --output TEXT");
+    let mut args = env::args().skip(1);
+    if args.next().as_deref() != Some("envelope") {
+        bail!("usage: axiom-zk-bridge envelope --program P --semantic-proof R --input TEXT --output TEXT");
     }
-    let p = arg(&mut a, "--program")?;
-    let i = arg(&mut a, "--input")?;
-    let o = arg(&mut a, "--output")?;
-    let program = fs::read(p)?;
-    println!("AXIOM-ZK-ENVELOPE/1");
-    println!("program.sha256={}", hex(&hash(&program)));
-    println!("input.sha256={}", hex(&hash(i.as_bytes())));
-    println!("output.sha256={}", hex(&hash(o.as_bytes())));
-    println!("backend=UNBOUND");
-    println!("proof=ABSENT");
+    let program = fs::read(arg(&mut args, "--program")?)?;
+    let semantic_proof = fs::read(arg(&mut args, "--semantic-proof")?)?;
+    let input = arg(&mut args, "--input")?;
+    let output = arg(&mut args, "--output")?;
+
+    println!("AXIOM-DUAL-PROOF/1");
+    println!("program.sha256={}", sha256_hex(&program));
+    println!("semantic-proof.sha256={}", sha256_hex(&semantic_proof));
+    println!("input.commitment={}", sha256_hex(input.as_bytes()));
+    println!("output.commitment={}", sha256_hex(output.as_bytes()));
+    println!("execution.backend=UNBOUND");
+    println!("execution.receipt=ABSENT");
+    println!("status=SEMANTIC_PROOF_BOUND_EXECUTION_PENDING");
     Ok(())
 }
-fn arg(a: &mut impl Iterator<Item = String>, n: &str) -> Result<String> {
-    let f = a.next().context("missing flag")?;
-    if f != n {
-        bail!("expected {n}");
+
+fn arg(args: &mut impl Iterator<Item = String>, expected: &str) -> Result<String> {
+    let flag = args.next().context("missing flag")?;
+    if flag != expected {
+        bail!("expected {expected}");
     }
-    a.next().context("missing value")
+    args.next().context("missing value")
 }
-fn hash(b: &[u8]) -> [u8; 32] {
-    Sha256::digest(b).into()
-}
-fn hex(h: &[u8; 32]) -> String {
-    h.iter().map(|b| format!("{b:02x}")).collect()
+
+fn sha256_hex(bytes: &[u8]) -> String {
+    Sha256::digest(bytes)
+        .iter()
+        .map(|byte| format!("{byte:02x}"))
+        .collect()
 }

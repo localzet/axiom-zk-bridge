@@ -1,16 +1,9 @@
-# axiom-zk-bridge
+# axiom-zk-bridge v0.2.0
 
-A backend-neutral envelope for the **second proof layer**: proving that an already-approved program actually executed
-with committed inputs and produced a committed output.
+Defines the **dual-proof** boundary:
 
-> **Maturity:** research prototype v0.1. The default verifier proves properties by exhaustive evaluation over an
-> explicitly finite input domain. A VALID receipt is therefore a theorem about that bounded model, not a claim of
-> unbounded program correctness.
+1. semantic proof: the program satisfies the Axiom specification;
+2. execution proof: a concrete execution of that exact program produced the claimed output.
 
-
-v0.1 implements deterministic execution commitments and verifier envelopes, but deliberately ships **no fake
-zero-knowledge prover**. Adapters for RISC Zero/SP1/Jolt or another zkVM can populate the opaque proof bytes later.
-
-```bash
-cargo run -- commit --program candidate.axp --input "x=-7" --output "7"
-```
+v0.2 binds the semantic receipt into the execution envelope. A real RISC Zero/SP1/Jolt adapter remains future work and
+is not falsely represented as implemented.
