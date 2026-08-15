@@ -1,0 +1,11 @@
+[package]
+name = "axiom-zk-bridge"
+version = "0.1.0"
+edition = "2021"
+description = "Backend-neutral interface for attaching external zkVM execution proofs"
+license = "MIT"
+publish = false
+
+[dependencies]
+anyhow = "1"
+sha2 = "0.10"
