@@ -1,9 +1,13 @@
 # axiom-zk-bridge v0.2.0
 
-Defines the **dual-proof** boundary:
+Определяет границу **двойного доказательства**:
 
-1. semantic proof: the program satisfies the Axiom specification;
-2. execution proof: a concrete execution of that exact program produced the claimed output.
+1. semantic proof: программа удовлетворяет Axiom-спецификации;
+2. execution proof: конкретное исполнение именно этой программы породило заявленный результат.
 
-v0.2 binds the semantic receipt into the execution envelope. A real RISC Zero/SP1/Jolt adapter remains future work and
-is not falsely represented as implemented.
+В v0.2 semantic receipt привязывается к execution envelope. Реальный адаптер RISC Zero/SP1/Jolt остаётся будущей работой
+и намеренно не изображается как уже реализованный.
+
+## Связанные исследования
+
+Этот компонент входит в исследовательский проект [Axiom](https://github.com/localzet/axiom-stack). Все компоненты собраны по теме [localzet-axiom](https://github.com/topics/localzet-axiom). Основной язык документации — русский. Исследовательские результаты и ограничения не означают готовность к промышленному применению.
