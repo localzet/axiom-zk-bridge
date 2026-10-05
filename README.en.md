@@ -8,6 +8,6 @@ Defines the **dual-proof** boundary:
 v0.2 binds the semantic receipt into the execution envelope. A real RISC Zero/SP1/Jolt adapter remains future work and
 is not falsely represented as implemented.
 
-## Авторство
+## Attribution
 
-Сопровождающий собственных изменений: **Ivan Zorin (localzet)** — <creator@localzet.com> · https://www.localzet.com. Copyright © 2026 Localzet Group. Исходное авторство и лицензии сторонних компонентов сохраняются. См. [AUTHORS](.github/AUTHORS.md).
+Maintainer of Localzet contributions: **Ivan Zorin (localzet)** — <creator@localzet.com> · https://www.localzet.com. Copyright © 2026 Localzet Group. Original authorship and third-party licenses remain applicable. See [AUTHORS](.github/AUTHORS.md).
